@@ -36,18 +36,6 @@ fn time_add_vectors(total_vector_size: i32) -> Vec<i32> {
     return buffer
 }
 
-#[pymodule]
-fn flitton_fib_rs(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_wrapped(wrap_pyfunction!(say_hello));
-    m.add_wrapped(wrap_pyfunction!(fibonacci_number));
-    m.add_wrapped(wrap_pyfunction!(fibonacci_numbers));
-    m.add_wrapped(wrap_pyfunction!(run_config));
-    m.add_wrapped(wrap_pyfunction!(object_interface));
-    m.add_wrapped(wrap_pyfunction!(time_add_vectors));
-    m.add_class::<FibProcessor>()?;
-    Ok(())
-}
-
 #[pyfunction]
 fn test_numpy<'a>(result_dict: &'a PyDict)
                   -> PyResult<&'a PyDict> {
@@ -69,5 +57,18 @@ fn test_numpy<'a>(result_dict: &'a PyDict)
     result_dict.set_item("numpy result", result_end);
 
     return Ok(result_dict)
+}
+
+#[pymodule]
+fn flitton_fib_rs(_py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_wrapped(wrap_pyfunction!(say_hello));
+    m.add_wrapped(wrap_pyfunction!(fibonacci_number));
+    m.add_wrapped(wrap_pyfunction!(fibonacci_numbers));
+    m.add_wrapped(wrap_pyfunction!(run_config));
+    m.add_wrapped(wrap_pyfunction!(object_interface));
+    m.add_wrapped(wrap_pyfunction!(time_add_vectors));
+    m.add_wrapped(wrap_pyfunction!(test_numpy));
+    m.add_class::<FibProcessor>()?;
+    Ok(())
 }
 
